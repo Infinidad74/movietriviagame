@@ -3,182 +3,153 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>War</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/sandra.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-database.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 
 <body>
-    <!--
-    <section id="login-screen">
-    
-    </section>
-    <section id="game-screen">
-        <div id="player-wild-1" class="playing-card back"></div>
-        <div id="player-wild-2" class="playing-card"></div>
-        
-    </section>
--->
-    <div class="content">
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-4 text-center">War</h1>
-                <p id="instructions" class="text-justify">How to play:
-                    Each player gets half a deck.
-                    Click on your deck to play the top card, and the person with the higher card value wins the hand.
-                    If the players draw cards with the same value, WAR is declared and three more cards are played face-down, followed by another card face up to determine the winner.
-                    If the cards are the same value again, WAR continues until there is a winner!
-                </p>
-            </div>
-        </div>
-        <div id="login-screen" class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h3>Your avatar</h3>
-                    <img id="login-avatar" class="avatar" src="https://api.adorable.io/avatars/400/player.png">
-                </div>
 
-                <div class="col-sm-8">
-                    <form>
-                        <div class="form-group">
-                            <label for="input-screen-name" id="label-screen-name">Your screen name:</label>
-                            <input type="text" class="form-control" id="input-screen-name"
-                                aria-describedby="screen-name-help" placeholder="Enter a screen name">
-                            <small id="screen-name-help" class="form-text text-muted">Your avatar is uniquely generated
-                                from your screen name.</small>
-                        </div>
-                        <button type="submit" id="submit-screen-name" class="btn btn-primary">Let's go!</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div id="game-screen" class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <!--<h5 class="card-title">Player 1 Deck</h5>
-                                        <p class="card-text">this will be where player 1 deck sits</p>-->
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <p id="opponent-name">Opponent</p>
-                                            <img src="https://api.adorable.io/avatars/400/opponent.png"
-                                                class="avatar opponent-avatar">
-                                        </div>
-                                        <div class="col-8">
-                                            <div id="opponent-deck" class="deck"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<div class="col-sm-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Player 1 Winning Cards</h5>
-                                        <p class="card-text">this will be where player 1 winning cards sit</p>
-                                    </div>
-                                </div>
-                            </div>-->
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Battle Area</h5>
-                                    <div id="opponent-card" class="playing-card"></div>
-                                    <div id="player-card" class="playing-card"></div>
+    <div class="container">
 
-                                    <!--<div class="col-sm-6">-->
-                                    <!--<div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">P1 Card</h5>
-                                                </div>
-                                            </div>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-sm-6">-->
-                                    <!--<div class="card">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">P2 Card</h5>
-                                                </div>
-                                            </div> -->
-                                    <!--</div>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <p id="player-name">Player</p>
-                                            <img src="https://api.adorable.io/avatars/400/player.png"
-                                                class="avatar player-avatar">
-                                        </div>
-                                        <div class="col-8">
-                                            <div id="player-deck" class="deck"></div>
-                                        </div>
-                                    </div>
-                                    <!--<h5 class="card-title">Player 2 Deck</h5>
-                                        <p class="card-text">this will be where player 2 deck sits</p>-->
 
-                                </div>
-                            </div>
-                        </div>
-                        <!--<div class="col-sm-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Player 2 Winning Cards</h5>
-                                        <p class="card-text">this will be where player 2 winning cards sit.</p>
-                                    </div>
-                                </div>
-                            </div>-->
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <h5 class="card-title">Battle Chat</h5>
-                    <div class="input-group mb-3">
-                        <ul id="chat-list" class="list-group">
-                            <li class="list-group-item player-message"><img
-                                    src="https://api.adorable.io/avatars/400/player.png" class="avatar mini">You're
-                                going down.</li>
-                            <li class="list-group-item opponent-message"><img
-                                    src="https://api.adorable.io/avatars/400/opponent.png" class="avatar mini">Come at
-                                me.</li>
-                        </ul>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="text" id="input-message" class="form-control" placeholder="Enter message here"
-                            aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button id="chat-send" class="btn btn-outline-secondary" type="button">Send</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="jumbotron shadow">
+            <h1 class="text-center">Pretty In Pink Movie Trivia</h1>
         </div>
 
+        <div id="qAndA">
+
+
+            <div>
+                <h3>What band performed the title track for the movie?</h3>
+                <input type="radio" name="q1" value="New Order">
+                <label for="">New Order</label>
+                <input type="radio" name="q1" value="Psychedelic Furs">
+                <label for="">Psychedelic Furs</label>
+                <input type="radio" name="q1" value="OMD">
+                <label for="">OMD</label>
+                <input type="radio" name="q1" value="Duran Duran">
+                <label for="">Duran Duran</label>
+            </div>
+            <div>
+                <h3>What was the name of Andrew McCarthy's character?</h3>
+                <input type="radio" name="q2" value="Blaine">
+                <label for="">Blaine</label>
+                <input type="radio" name="q2" value="Steff">
+                <label for="">Steff</label>
+                <input type="radio" name="q2" value="Richard">
+                <label for="">Richard</label>
+                <input type="radio" name="q2" value="Phil">
+                <label for="">Phil</label>
+            </div>
+            <div>
+                <h3>Who did Duckie fall in love with?</h3>
+                <input type="radio" name="q3" value="Karen">
+                <label for="">Karen</label>
+                <input type="radio" name="q3" value="Sheena">
+                <label for="">Sheena</label>
+                <input type="radio" name="q3" value="Vanessa">
+                <label for="">Vanessa</label>
+                <input type="radio" name="q3" value="Andie">
+                <label for="">Andie</label>
+            </div>
+            <div>
+                <h3>What was Duckies real name?</h3>
+                <input type="radio" name="q4" value="Phil">
+                <label for="">Phil</label>
+                <input type="radio" name="q4" value="Larry">
+                <label for="">Larry</label>
+                <input type="radio" name="q4" value="Joe">
+                <label for="">Joe</label>
+                <input type="radio" name="q4" value="Jack">
+                <label for="">Jack</label>
+            </div>
+            <div>
+                <h3>Who was the doorman that never let Duckie in the club?</h3>
+                <input type="radio" name="q5" value="Gary Coleman">
+                <label for="">Gary Coleman</label>
+                <input type="radio" name="q5" value="Robert Downey Jr">
+                <label for="">Robert Downey Jr</label>
+                <input type="radio" name="q5" value="Andrew Dice Clay">
+                <label for="">Andrew Dice Clay</label>
+                <input type="radio" name="q5" value="Martin Sheen">
+                <label for="">Martin Sheen</label>
+            </div>
+            <div>
+                <h3>What kind of vehicle did Duckie drive?</h3>
+                <input type="radio" name="q6" value="Honda Civic">
+                <label for="">Honda Civic</label>
+                <input type="radio" name="q6" value="BMW">
+                <label for="">BMW</label>
+                <input type="radio" name="q6" value="Bicycle">
+                <label for="">Bicycle</label>
+                <input type="radio" name="q6" value="Mercedes">
+                <label for="">Mercedes</label>
+            </div>
+            <div>
+                <h3>In what year was the movie released?</h3>
+                <input type="radio" name="q7" value="1988">
+                <label for="">1988</label>
+                <input type="radio" name="q7" value="1990">
+                <label for="">1990</label>
+                <input type="radio" name="q7" value="1956">
+                <label for="">1956</label>
+                <input type="radio" name="q7" value="1986">
+                <label for="">1986</label>
+            </div>
+            <div>
+                <h3>'Pretty In Pink' was written by whom?</h3>
+                <input type="radio" name="q8" value="Woody Allen">
+                <label for="">Woody Allen</label>
+                <input type="radio" name="q8" value="Bart Simpson">
+                <label for="">Bart Simpson</label>
+                <input type="radio" name="q8" value="Tom Hanks">
+                <label for="">Tom Hanks</label>
+                <input type="radio" name="q8" value="John Hughes">
+                <label for="">John Hughes</label>
+            </div>
+            <div>
+                <h3>Who played Andie's dad?</h3>
+                <input type="radio" name="q9" value="Don Johnson">
+                <label for="">Don Johnson</label>
+                <input type="radio" name="q9" value="Harry Dean Stanton">
+                <label for="">Harry Dean Stanton</label>
+                <input type="radio" name="q9" value="Tom Hanks">
+                <label for="">Tom Hanks</label>
+                <input type="radio" name="q9" value="Gene Simmons">
+                <label for="">Gene Simmons</label>
+            </div>
+            <div>
+                <h3>'Pretty In Pink' was directed by whom?</h3>
+                <input type="radio" name="q10" value="Howard Deutch">
+                <label for="">Howard Deutch</label>
+                <input type="radio" name="q10" value="Tom Cruise">
+                <label for="">Tom Cruise</label>
+                <input type="radio" name="q10" value="Larry Rosenberg">
+                <label for="">Larry Rosenberg</label>
+                <input type="radio" name="q10" value="John Walsh">
+                <label for="">John Walsh</label>
+            </div>
+
+            <button class="btn btn-primary" id="submitBtn">Submit</button>
+        </div>
     </div>
- 
-    <!--Workaround to bypass following error in in console
-        	Uncaught TypeError: url.indexOf is not a function
-            at jQuery.fn.init.jQuery.fn.load (jquery-3.4.1.js:10091)
-            at responsivevoice.js?key=5YN7d9Mj:339-->
-    <!--script src="https://code.responsivevoice.org/responsivevoice.js?key=5YN7d9Mj"></script-->
 
-    <script src="assets/javascript/game.js"></script>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title text-center"></h4>
+
+        </div>
+    </div>
+
+
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>
